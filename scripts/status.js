@@ -128,7 +128,7 @@ function printHuman(payload) {
   printGovernance(payload.governance);
 }
 
-function main() {
+async function main() {
   let store = null;
 
   try {
@@ -137,7 +137,7 @@ function main() {
       showHelp(0);
     }
 
-    store = createStateStore({
+    store = await createStateStore({
       dbPath: options.dbPath,
       homeDir: process.env.HOME,
     });
