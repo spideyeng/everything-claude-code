@@ -10,7 +10,7 @@ Use this workflow when working on **add-new-skill-command** in `everything-claud
 
 ## Goal
 
-Adds a new skill command to the ECC bundle, documenting the process for creating a new skill.
+Adds a new skill command to the everything-claude-code ECC bundle.
 
 ## Common Files
 
@@ -25,7 +25,8 @@ Adds a new skill command to the ECC bundle, documenting the process for creating
 
 ## Typical Commit Signals
 
-- Create or update .claude/commands/add-new-skill-command.md with details for the new skill command.
+- Create or update .claude/commands/add-new-skill-command.md
+- Commit the file with a standardized message
 
 ## Notes
 
