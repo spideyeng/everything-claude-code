@@ -10,14 +10,15 @@ Use this workflow when working on **add-new-agent** in `everything-claude-code`.
 
 ## Goal
 
-Adds a new agent to the repository, including documentation and registration.
+Adds a new agent to the codebase, including documentation and registration.
 
 ## Common Files
 
 - `agents/*.md`
 - `AGENTS.md`
-- `.codex/agents/*.toml`
 - `rules/common/agents.md`
+- `.codex/agents/*.toml`
+- `.agents/skills/*/agents/openai.yaml`
 
 ## Suggested Sequence
 
@@ -28,10 +29,10 @@ Adds a new agent to the repository, including documentation and registration.
 
 ## Typical Commit Signals
 
-- Create agents/<agent-name>.md with agent documentation.
-- Register the agent in AGENTS.md.
-- If needed, add agent config in .codex/agents/<agent-name>.toml or similar.
-- If needed, update rules/common/agents.md or other rules files.
+- Create agent documentation in agents/<agent-name>.md
+- Register agent in AGENTS.md
+- Update rules/common/agents.md if needed
+- Add agent configuration in .codex/agents/<agent-name>.toml or .agents/skills/<skill-name>/agents/openai.yaml
 
 ## Notes
 
