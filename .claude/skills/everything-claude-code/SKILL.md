@@ -34,13 +34,13 @@ Follow these commit message conventions based on 500 analyzed commits.
 ### Prefixes Used
 
 - `fix`
-- `test`
 - `feat`
+- `test`
 - `docs`
 
 ### Message Guidelines
 
-- Average message length: ~66 characters
+- Average message length: ~67 characters
 - Keep first line concise and descriptive
 - Use imperative mood ("Add feature" not "Added feature")
 
@@ -48,7 +48,7 @@ Follow these commit message conventions based on 500 analyzed commits.
 *Commit message example*
 
 ```text
-feat: add everything-claude-code ECC bundle (.claude/commands/add-or-update-language-support.md)
+feat: add everything-claude-code ECC bundle (.claude/commands/add-new-agent.md)
 ```
 
 *Commit message example*
@@ -78,7 +78,7 @@ chore(config): governance and config foundation (#292)
 *Commit message example*
 
 ```text
-feat: add everything-claude-code ECC bundle (.claude/commands/add-new-skill-or-agent.md)
+feat: add everything-claude-code ECC bundle (.claude/commands/add-new-skill.md)
 ```
 
 *Commit message example*
@@ -189,7 +189,7 @@ These workflows were detected from analyzing commit patterns.
 
 Standard feature implementation workflow
 
-**Frequency**: ~25 times per month
+**Frequency**: ~26 times per month
 
 **Steps**:
 1. Add feature implementation
@@ -199,172 +199,157 @@ Standard feature implementation workflow
 **Files typically involved**:
 - `manifests/*`
 - `**/*.test.*`
-- `**/api/**`
 
 **Example commit sequence**:
 ```
-feat: strengthen install lifecycle and target adapters (#512)
-feat: add skill evolution foundation (#514)
-feat: add SQLite state store and query CLI (#510)
+feat(skills): add documentation-lookup, bun-runtime, nextjs-turbopack; feat(agents): add rust-reviewer
+docs(skills): align documentation-lookup with CONTRIBUTING template; add cross-harness (Codex/Cursor) skill copies
+fix: address PR review — skill template (When to use, How it works, Examples), bun.lock, next build note, rust-reviewer CI note, doc-lookup privacy/uncertainty
 ```
 
 ### Add New Skill
 
-Adds a new skill to the repository, including documentation and agent config if cross-harness.
+Adds a new skill to the codebase, including documentation, agent configuration, and cross-harness copies.
 
-**Frequency**: ~6 times per month
+**Frequency**: ~3 times per month
 
 **Steps**:
-1. Create or update skills/<skill-name>/SKILL.md with skill documentation.
-2. If cross-harness, add .agents/skills/<skill-name>/SKILL.md and/or .cursor/skills/<skill-name>/SKILL.md.
-3. If agent config is needed, add .agents/skills/<skill-name>/agents/openai.yaml.
-4. If needed, register the skill in install manifests or documentation.
+1. Create or update SKILL.md in skills/<skill-name>/SKILL.md
+2. Create or update agents/openai.yaml in .agents/skills/<skill-name>/agents/openai.yaml
+3. Copy or update SKILL.md in .agents/skills/<skill-name>/SKILL.md and/or .cursor/skills/<skill-name>/SKILL.md
+4. Register or update skill in manifests/install-components.json, install-modules.json, or install-profiles.json as needed
+5. Update documentation (README.md, AGENTS.md) if required
 
 **Files typically involved**:
 - `skills/*/SKILL.md`
 - `.agents/skills/*/SKILL.md`
-- `.cursor/skills/*/SKILL.md`
 - `.agents/skills/*/agents/openai.yaml`
+- `.cursor/skills/*/SKILL.md`
+- `manifests/install-components.json`
+- `manifests/install-modules.json`
+- `manifests/install-profiles.json`
+- `README.md`
+- `AGENTS.md`
 
 **Example commit sequence**:
 ```
-Create or update skills/<skill-name>/SKILL.md with skill documentation.
-If cross-harness, add .agents/skills/<skill-name>/SKILL.md and/or .cursor/skills/<skill-name>/SKILL.md.
-If agent config is needed, add .agents/skills/<skill-name>/agents/openai.yaml.
-If needed, register the skill in install manifests or documentation.
+Create or update SKILL.md in skills/<skill-name>/SKILL.md
+Create or update agents/openai.yaml in .agents/skills/<skill-name>/agents/openai.yaml
+Copy or update SKILL.md in .agents/skills/<skill-name>/SKILL.md and/or .cursor/skills/<skill-name>/SKILL.md
+Register or update skill in manifests/install-components.json, install-modules.json, or install-profiles.json as needed
+Update documentation (README.md, AGENTS.md) if required
 ```
 
 ### Add New Agent
 
-Adds a new agent to the repository, including documentation and registration.
+Adds a new agent to the codebase, including documentation and registration.
 
-**Frequency**: ~3 times per month
+**Frequency**: ~2 times per month
 
 **Steps**:
-1. Create agents/<agent-name>.md with agent documentation.
-2. Register the agent in AGENTS.md.
-3. If needed, add agent config in .codex/agents/<agent-name>.toml or similar.
-4. If needed, update rules/common/agents.md or other rules files.
+1. Create agent documentation in agents/<agent-name>.md
+2. Register agent in AGENTS.md
+3. Update rules/common/agents.md if needed
+4. Add agent configuration in .codex/agents/<agent-name>.toml or .agents/skills/<skill-name>/agents/openai.yaml
 
 **Files typically involved**:
 - `agents/*.md`
 - `AGENTS.md`
-- `.codex/agents/*.toml`
 - `rules/common/agents.md`
+- `.codex/agents/*.toml`
+- `.agents/skills/*/agents/openai.yaml`
 
 **Example commit sequence**:
 ```
-Create agents/<agent-name>.md with agent documentation.
-Register the agent in AGENTS.md.
-If needed, add agent config in .codex/agents/<agent-name>.toml or similar.
-If needed, update rules/common/agents.md or other rules files.
+Create agent documentation in agents/<agent-name>.md
+Register agent in AGENTS.md
+Update rules/common/agents.md if needed
+Add agent configuration in .codex/agents/<agent-name>.toml or .agents/skills/<skill-name>/agents/openai.yaml
 ```
 
 ### Add Language Support
 
-Adds support for a new programming language, including agents, skills, commands, rules, and tests.
+Adds support for a new programming language, including agents, commands, rules, and tests.
 
-**Frequency**: ~2 times per month
+**Frequency**: ~1 times per month
 
 **Steps**:
-1. Add agents for the language (e.g., <lang>-reviewer.md, <lang>-build-resolver.md).
-2. Add skills for the language (e.g., <lang>-patterns/SKILL.md, <lang>-testing/SKILL.md).
-3. Add commands for the language (e.g., commands/<lang>-build.md, <lang>-review.md, <lang>-test.md).
-4. Add or update rules for the language (e.g., rules/<lang>/*.md).
-5. Add or update tests for language hooks or features.
-6. Register agents and update documentation (AGENTS.md, README.md).
+1. Add new agent(s) for the language in agents/<language>-*.md
+2. Add new commands in commands/<language>-*.md
+3. Add new rules in rules/<language>/*
+4. Add or update test files in tests/hooks/ or tests/lib/
+5. Update documentation (README.md, AGENTS.md) if required
 
 **Files typically involved**:
-- `agents/*<lang>*.*`
-- `skills/*<lang>*/*`
-- `commands/*<lang>*.*`
-- `rules/<lang>/*.md`
+- `agents/*-*.md`
+- `commands/*-*.md`
+- `rules/*/*`
 - `tests/hooks/*.test.js`
-- `AGENTS.md`
+- `tests/lib/*.test.js`
 - `README.md`
+- `AGENTS.md`
 
 **Example commit sequence**:
 ```
-Add agents for the language (e.g., <lang>-reviewer.md, <lang>-build-resolver.md).
-Add skills for the language (e.g., <lang>-patterns/SKILL.md, <lang>-testing/SKILL.md).
-Add commands for the language (e.g., commands/<lang>-build.md, <lang>-review.md, <lang>-test.md).
-Add or update rules for the language (e.g., rules/<lang>/*.md).
-Add or update tests for language hooks or features.
-Register agents and update documentation (AGENTS.md, README.md).
+Add new agent(s) for the language in agents/<language>-*.md
+Add new commands in commands/<language>-*.md
+Add new rules in rules/<language>/*
+Add or update test files in tests/hooks/ or tests/lib/
+Update documentation (README.md, AGENTS.md) if required
 ```
 
-### Add Or Update Command
+### Sync Skill Or Agent Documentation
 
-Adds or updates a command (slash command or workflow) and its documentation.
-
-**Frequency**: ~3 times per month
-
-**Steps**:
-1. Create or update commands/<command>.md with command documentation.
-2. If mirrored, update .opencode/commands/<command>.md.
-3. If related to an agent or skill, update agent/skill documentation.
-4. If needed, update AGENTS.md, README.md, or other registry files.
-
-**Files typically involved**:
-- `commands/*.md`
-- `.opencode/commands/*.md`
-- `skills/*/SKILL.md`
-- `AGENTS.md`
-- `README.md`
-
-**Example commit sequence**:
-```
-Create or update commands/<command>.md with command documentation.
-If mirrored, update .opencode/commands/<command>.md.
-If related to an agent or skill, update agent/skill documentation.
-If needed, update AGENTS.md, README.md, or other registry files.
-```
-
-### Add Or Update Install Manifest
-
-Adds or updates install manifest files to register new skills, modules, or profiles.
+Keeps documentation and catalog files in sync with the actual set of skills and agents.
 
 **Frequency**: ~2 times per month
 
 **Steps**:
-1. Update manifests/install-components.json, install-modules.json, or install-profiles.json.
-2. If needed, update related documentation or validation scripts.
+1. Update AGENTS.md and README.md with current counts and lists
+2. Update or validate manifests/install-*.json files
+3. Update or validate scripts/ci/catalog.js and related CI/test files
 
 **Files typically involved**:
+- `AGENTS.md`
+- `README.md`
 - `manifests/install-components.json`
 - `manifests/install-modules.json`
 - `manifests/install-profiles.json`
+- `scripts/ci/catalog.js`
+- `tests/ci/validators.test.js`
 
 **Example commit sequence**:
 ```
-Update manifests/install-components.json, install-modules.json, or install-profiles.json.
-If needed, update related documentation or validation scripts.
+Update AGENTS.md and README.md with current counts and lists
+Update or validate manifests/install-*.json files
+Update or validate scripts/ci/catalog.js and related CI/test files
 ```
 
-### Feature Development With Tests And Docs
+### Add Or Update Ecc Bundle Command
 
-Implements a new feature or fixes an issue, including code, tests, and documentation.
+Adds or updates ECC bundle command documentation or configuration files.
 
-**Frequency**: ~4 times per month
+**Frequency**: ~2 times per month
 
 **Steps**:
-1. Implement or update code in scripts/, skills/, or agents/.
-2. Write or update corresponding tests in tests/.
-3. Update related documentation (README.md, AGENTS.md, etc.).
+1. Add or update markdown documentation in .claude/commands/*.md
+2. Add or update configuration in .claude/skills/*/SKILL.md, .claude/identity.json, .claude/ecc-tools.json, .claude/team/*.json, etc.
+3. Add or update agent/skill configuration in .codex/agents/*.toml or .agents/skills/*/agents/openai.yaml
 
 **Files typically involved**:
-- `scripts/**/*.js`
-- `skills/**/*.js`
-- `agents/**/*.js`
-- `tests/**/*.test.js`
-- `README.md`
-- `AGENTS.md`
+- `.claude/commands/*.md`
+- `.claude/skills/*/SKILL.md`
+- `.claude/identity.json`
+- `.claude/ecc-tools.json`
+- `.claude/team/*.json`
+- `.codex/agents/*.toml`
+- `.agents/skills/*/agents/openai.yaml`
 
 **Example commit sequence**:
 ```
-Implement or update code in scripts/, skills/, or agents/.
-Write or update corresponding tests in tests/.
-Update related documentation (README.md, AGENTS.md, etc.).
+Add or update markdown documentation in .claude/commands/*.md
+Add or update configuration in .claude/skills/*/SKILL.md, .claude/identity.json, .claude/ecc-tools.json, .claude/team/*.json, etc.
+Add or update agent/skill configuration in .codex/agents/*.toml or .agents/skills/*/agents/openai.yaml
 ```
 
 
